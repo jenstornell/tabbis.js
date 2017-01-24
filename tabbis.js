@@ -1,20 +1,21 @@
-var onlytabs = (function () {
+var tabbis = (function () {
 	var fn = {};
 
 	var data;
 	var types = ['tab', 'pane'];
 	var type;
 	var groups = [];
-	var selectors = [];
 	var activeGroups = [];
 	var activeChildren = [];
 	var activeItems = [];
 	var indexGroup;
 	var indexItem;
+	var memory = [];
 
 	fn.init = function(options) {
 		data = options;
 		fn.setDefaults();
+		fn.setMemory();
 
 		groups['tab'] = document.querySelectorAll(data.tabGroup);
 		groups['pane'] = document.querySelectorAll(data.paneGroup);
@@ -24,11 +25,23 @@ var onlytabs = (function () {
 
 			for( var itemIndex = 0; itemIndex < tabItems.length; itemIndex++ ) {
 				tabItems[itemIndex].addEventListener('click', fn.onClick.bind(this, groupIndex, itemIndex), false);
+
+				indexGroup = groupIndex;
+				indexItem = itemIndex;
+
+				if(!fn.hasMemory()) continue;
+				fn.setNodes(groupIndex, itemIndex);
 			}
 		}
 	};
 
 	fn.onClick = function(groupIndex, itemIndex) {
+		fn.setNodes(groupIndex, itemIndex);
+
+		fn.setCallback(indexGroup, indexItem);
+	};
+
+	fn.setNodes = function(groupIndex, itemIndex) {
 		indexGroup = groupIndex;
 		indexItem = itemIndex;
 
@@ -39,10 +52,28 @@ var onlytabs = (function () {
 			fn.setActiveChildren();
 			fn.setActiveItems();
 			fn.putActiveClass();
-		}		
+		}
 
-		fn.setCallback(indexGroup, indexItem);
-	}
+		memory[groupIndex] = [];
+		memory[groupIndex][itemIndex] = true;
+
+		localStorage.setItem('tabbis', JSON.stringify(memory));
+	};
+
+	fn.hasMemory = function() {
+		if( typeof memory === 'undefined' ) return;
+		if( typeof memory[indexGroup] === 'undefined' ) return;
+		if( typeof memory[indexGroup][indexItem] === 'undefined') return;
+		if( memory[indexGroup][indexItem] !== true ) return;
+		return true;
+	};
+
+	fn.setMemory = function() {
+		if(localStorage.getItem('tabbis') === null) return;
+		if(localStorage.getItem('tabbis').length == 0) return;
+
+		memory = Object.values(JSON.parse(localStorage.getItem('tabbis')));
+	};
 
 	fn.putActiveClass = function() {
 		for( var i = 0; i < activeChildren[type].length; i++ ) {
@@ -94,9 +125,8 @@ var onlytabs = (function () {
 				paneItems[itemIndex].classList.remove(data['paneActive']);
 			}
 		}
+		localStorage.removeItem('tabbis');
 	};
-
-	// Memory true false
 	
 	return fn;
 })();

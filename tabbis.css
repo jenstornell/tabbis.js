@@ -1,0 +1,35 @@
+* {
+	padding: 0;
+	margin: 0;
+	font-family: arial;
+}
+body {
+	padding: 0 40px;
+}
+h2 {
+	margin: 20px 0;
+}
+[data-tabs] {
+	display: flex;
+	background: #eee;
+	padding: 10px;
+	border: 2px solid #ccc;
+}
+[data-tabs] >* {
+	padding: 5px 20px;
+	cursor: pointer;
+}
+[data-tabs] .active {
+	background: #31a3e8;
+	color: #fff;
+	border-radius: 5px;
+}
+[data-panes] > * {
+	display: none;
+	border: 2px solid #ccc;
+	border-top: none;
+	padding: 20px;
+}
+[data-panes] > .active {
+	display: block;
+}
