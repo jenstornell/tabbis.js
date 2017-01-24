@@ -23,7 +23,7 @@ Really simple tabs with pure vanilla javascript.
 
 ## Install
 
-Install by the simple OR the advanced setup depending on your needs.
+Install by the simple OR the [advanced setup](docs/advanced.md) depending on your needs.
 
 ### Simple setup
 
