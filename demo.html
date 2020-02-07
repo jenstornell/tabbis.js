@@ -1,108 +1,108 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width,initial-scale=1.0">
-	<title>Tabbis</title>
-	<style>
-	* {
-		padding: 0;
-		margin: 0;
-		font-family: arial;
-	}
-	body {
-		padding: 0 40px;
-	}
-	h2 {
-		margin: 20px 0;
-	}
-	[data-tabs] {
-		display: flex;
-		background: #eee;
-		padding: 10px;
-		border: 2px solid #ccc;
-	}
-	[data-tabs] >* {
-		padding: 5px 20px;
-		cursor: pointer;
-	}
-	[data-tabs] .active {
-		background: #31a3e8;
-		color: #fff;
-		border-radius: 5px;
-	}
-	[data-panes] > * {
-		display: none;
-		border: 2px solid #ccc;
-		border-top: none;
-		padding: 20px;
-	}
-	[data-panes] > .active {
-		display: block;
-	}
-	</style>
-</head>
-<body>
-	<h2>Flat</h2>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Tabbis</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        font-family: arial;
+      }
+      body {
+        padding: 0 40px;
+      }
+      h2 {
+        margin: 20px 0;
+      }
+      [data-tabs] {
+        display: flex;
+        background: #eee;
+        padding: 10px;
+        border: 2px solid #ccc;
+      }
+      [data-tabs] > * {
+        padding: 5px 20px;
+        cursor: pointer;
+      }
+      [data-tabs] .active {
+        background: #31a3e8;
+        color: #fff;
+        border-radius: 5px;
+      }
+      [data-panes] > * {
+        display: none;
+        border: 2px solid #ccc;
+        border-top: none;
+        padding: 20px;
+      }
+      [data-panes] > .active {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Flat</h2>
 
-	<div data-tabs>
-		<div>Tab1</div>
-		<div>Tab2</div>
-		<div>Tab3</div>
-	</div>
+    <div data-tabs>
+      <div class="active">Tab1</div>
+      <div>Tab2</div>
+      <div>Tab3</div>
+    </div>
 
-	<div data-panes>
-		<div>Pane1</div>
-		<div>Pane2</div>
-		<div>Pane3</div>
-	</div>
+    <div data-panes>
+      <div class="active">Pane1</div>
+      <div>Pane2</div>
+      <div>Pane3</div>
+    </div>
 
-	<h2>Nested</h2>
-		
-	<div data-tabs>
-		<div>Tab1</div>
-		<div>Tab2</div>
-		<div>Tab3</div>
-	</div>
+    <h2>Nested</h2>
 
-	<div data-panes>
-		<div>Pane1</div>
-		<div>
-			<div data-tabs>
-				<div>Tab4</div>
-				<div>Tab5</div>
-			</div>
+    <div data-tabs>
+      <div class="active">Tab1</div>
+      <div>Tab2</div>
+      <div>Tab3</div>
+    </div>
 
-			<div data-panes>
-				<div>Pane4</div>
-				<div>
-					<div data-tabs>
-						<div>Tab6</div>
-						<div>Tab7</div>
-					</div>
+    <div data-panes>
+      <div>Pane1</div>
+      <div class="active">
+        <div data-tabs>
+          <div class="active">Tab4</div>
+          <div>Tab5</div>
+        </div>
 
-					<div data-panes>
-						<div>Pane6</div>
-						<div>Pane7</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div>Pane3</div>
-	</div>
+        <div data-panes>
+          <div class="active">Pane4</div>
+          <div>
+            <div data-tabs>
+              <div>Tab6</div>
+              <div>Tab7</div>
+            </div>
 
-	<script src="tabbis.js"></script>
-	<script>
-		var tabs = tabbis.init({
-			tabGroup: '[data-tabs]',
-			paneGroup: '[data-panes]',
-			tabActive: 'active',
-			paneActive: 'active',
-			callback: function(tab, pane) {
-				console.log(tab);
-				console.log(pane);
-			}
-		});
-	</script>
-</body>
+            <div data-panes>
+              <div>Pane6</div>
+              <div>Pane7</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>Pane3</div>
+    </div>
+
+    <script src="assets/js/dist/tabbis.min.js"></script>
+    <script>
+      var tabs = tabbis.init({
+        tabGroup: "[data-tabs]",
+        paneGroup: "[data-panes]",
+        tabActive: "active",
+        paneActive: "active",
+        callback: function(tab, pane) {
+          console.log(tab);
+          console.log(pane);
+        }
+      });
+    </script>
+  </body>
 </html>

@@ -34,12 +34,12 @@ Install by the simple OR the [advanced setup](docs/advanced.md) depending on you
 <script>
   var tabs = tabbis.init();
 </script>
-``` 
+```
 
 **Stylesheet:** Add this before `</head>`:
 
 ```html
-<link rel="stylesheet" href="css/tabby.css">
+<link rel="stylesheet" href="css/tabby.css" />
 ```
 
 **Html:** Add this somewhere after `<body>`:
