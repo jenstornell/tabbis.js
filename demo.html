@@ -19,6 +19,11 @@
       [data-tabs] {
         display: flex;
         background: #eee;
+        background: linear-gradient(
+          -1deg,
+          rgba(0, 0, 0, 0.1),
+          rgba(0, 0, 0, 0.2)
+        );
         padding: 10px;
         border: 2px solid #ccc;
       }
@@ -46,21 +51,21 @@
     <h2>Flat</h2>
 
     <div data-tabs>
-      <div class="active">Tab1</div>
-      <div>Tab2</div>
+      <div>Tab1</div>
+      <div data-active>Tab2</div>
       <div>Tab3</div>
     </div>
 
     <div data-panes>
-      <div class="active">Pane1</div>
+      <div>Pane1</div>
       <div>Pane2</div>
-      <div>Pane3</div>
+      <div data-active>Pane3</div>
     </div>
 
     <h2>Nested</h2>
 
     <div data-tabs>
-      <div class="active">Tab1</div>
+      <div>Tab1</div>
       <div>Tab2</div>
       <div>Tab3</div>
     </div>
@@ -91,13 +96,40 @@
       <div>Pane3</div>
     </div>
 
-    <script src="assets/js/dist/tabbis.min.js"></script>
+    <script src="assets/js/dist/tabbis.js"></script>
     <script>
-      var tabs = tabbis.init({
+      /*var tabs = tabbis.init({
         tabGroup: "[data-tabs]",
         paneGroup: "[data-panes]",
         tabActive: "active",
         paneActive: "active",
+        callback: function(tab, pane) {
+          console.log(tab);
+          console.log(pane);
+        }
+      });
+      tab: {
+        group: "",
+        activeClass: "",
+        activeData: "",
+      },
+      pane: {
+        group: "",
+        activeClass: "",
+        activeData: ""
+      },
+      memory: {
+        name: "asda"
+      },
+      callback: function()
+      */
+      let tabs = new tabbisES6();
+      tabs.init({
+        tabGroup: "[data-tabs]",
+        paneGroup: "[data-panes]",
+        tabActive: "active",
+        paneActive: "active",
+        memory: false,
         callback: function(tab, pane) {
           console.log(tab);
           console.log(pane);

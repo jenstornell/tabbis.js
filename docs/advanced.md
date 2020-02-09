@@ -14,17 +14,18 @@ Add this just before `</body>`:
 <script src="tabbis.js"></script>
 <script>
   var tabs = tabbis.init({
-    tabGroup: '[data-tabs]',
-    paneGroup: '[data-panes]',
-    tabActive: 'active',
-    paneActive: 'active',
+    tabGroup: "[data-tabs]",
+    paneGroup: "[data-panes]",
+    tabActive: "active",
+    paneActive: "active",
+    memoryName: "tabbis",
     callback: function(tab, pane) {
       console.log(tab);
       console.log(pane);
     }
   });
 </script>
-``` 
+```
 
 #### `tabGroup` and `paneGroup`
 
@@ -35,6 +36,10 @@ Add this just before `</body>`:
 
 - `tabActive` is the classname that will be set when the tab is active.
 - `paneActive` is the classname that will be set when the pane is active.
+
+#### `memoryName`
+
+By default the tab state is saved to local storage with the name `tabbis`. It can be changed to prevent collisions with another library.
 
 #### `callback`
 
@@ -52,7 +57,7 @@ console.log(pane.parentNode.children);
 Add this before `</head>`:
 
 ```html
-<link rel="stylesheet" href="css/tabby.css">
+<link rel="stylesheet" href="css/tabby.css" />
 ```
 
 ## Html
