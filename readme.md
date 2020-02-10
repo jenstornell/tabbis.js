@@ -1,5 +1,7 @@
 # Tabbis
 
+***New version available*** - *Old version can be found <a href="https://github.com/jenstornell/tabbis.js/blob/master/old/demo.html">here</a>*.
+
 Really simple tabs with pure vanilla javascript.
 
 **Features**
@@ -81,6 +83,11 @@ This plugin is provided "as is" with no guarantee. Use it at your own risk and a
 ## License - MIT
 
 https://opensource.org/licenses/MIT
+
+## Featured
+
+- https://www.hongkiat.com/blog/50-nice-clean-css-tab-based-navigation-scripts/
+- https://www.cssscript.com/tiny-nested-tabs-vanilla-javascript-tabbis-js/
 
 ## Credits
 

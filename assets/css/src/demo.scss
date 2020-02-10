@@ -1,0 +1,37 @@
+[data-tabs] {
+	background: #000;
+	border: 2px solid #000;
+	border-bottom: none;
+
+	> * {
+		padding: .75rem 1.5rem;
+		user-select: none;
+		font-weight: 600;
+		color: #fff;
+	}
+
+	> *:not(:last-child) {
+		border-right: 1px solid #333;
+	}
+
+	.active {
+		background: #fff;
+		color: #000;
+	}
+}
+
+[data-panes] {
+	> * {
+		background: #fff;
+		border: 2px solid #000;
+		border-top: none;
+		padding: 2rem;
+		font-weight: 600;
+	}
+}
+
+/*
+TODO: Hover animations
+TODO: Pane animation
+TODO: Mobile overflow scroll
+*/
