@@ -112,16 +112,15 @@ tabbis({
 
 By design, when using the tabs, they are save in your local storage. If you reset the browser, the tabs will still be open where you left them. To disable memory you can set `memory: false` in your options.
 
-## Set active tab
+## Active tab
 
-If you have memory activated, Tabbis will look there first and set a tab to active from there.
+The active tab is set by the following order.
 
-**If memory is not activated or set:**
+1. **Memory** - If you have memory activated and Tabbis has found an active tab in the memory it will use that.
+2. **Data attribute** - By default you can set `data-active` on a tab that you want to be active on the first load, or always depending if memory is activated or not.
+3. **First tab** - If none of the above can be used, the first tab will be active.
 
-- If you set `data-active` to a tab, it will be active.
-- If you don't set any tab to active, the first tab and the first pane will be active.
-
-*Don't add `active` class on a tab directly. It may cause a flash of unstyled content. Instead use `data-active`.*
+*Never add `active` class on a tab, instead use `data-active`. Else you will experience a flash of unstyled content, which is not a good thing.*
 
 ## Nesting
 
@@ -129,29 +128,25 @@ It's possible to have nested tabs. See [example-nested.html](example-nested.html
 
 ## Requirements
 
-A modern browser.
-
-**Tested with:**
-
 - Chrome
 - Firefox
 - Edge
 
 ## FAQ
 
-### Why does tabbis does not load?
+### Why does Tabbis not load?
 
-In some cases you may need to wait for the dom to load.
+In some cases you may need to wait for the dom to load. It can be done like below.
 
 ```js
 window.addEventListener('DOMContentLoaded', () => {
-    tabbis();
+  tabbis();
 });
 ```
 
-### How can I trigger a tab do activate?
+### How can I trigger a tab to activate?
 
-There is no built in feature in Tabbis to do that but it can be done with pure javascript.
+There is no built in feature in Tabbis to do that, but it can be done with pure javascript.
 
 ```js
 const element = document.querySelector('.my-tab');
@@ -170,9 +165,9 @@ The memory uses a key that is bound to a domain, not a page. You should change t
 
 This library is provided "as is" with no guarantee. Use it at your own risk and always test it yourself before using it in a production environment. If you find any issues, please create a new issue.
 
-## License - MIT
+## License
 
-https://opensource.org/licenses/MIT
+[MIT](LICENSE)
 
 ## Featured
 
