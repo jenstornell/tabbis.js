@@ -25,13 +25,13 @@ Really simple tabs with pure vanilla javascript.
 
 - [Demo 1 - Simple tabs](https://csspoo.com/tabbis/example-simple.html)
 - [Demo 2 - Nested tabs](https://csspoo.com/tabbis/example-nested.html)
-- [Demo 3 - Nested tabs with options](https://csspoo.com/tabbis/example-nested-tabs-with-options.html)
+- [Demo 3 - Nested tabs with options](https://csspoo.com/tabbis/example-nested-with-options.html)
 
 ## Examples
 
 - [Example 1 - Simple tabs](example-simple.html)
 - [Example 2 - Nested tabs](example-nested.html)
-- [Example 3 - Nested tabs with options](example-nested-tabs-with-options.html)
+- [Example 3 - Nested tabs with options](example-nested-with-options.html)
 
 ## Install
 
