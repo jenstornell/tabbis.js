@@ -1,4 +1,4 @@
-class tabbisES6 {
+class tabbisClass {
 	init(options) {
 		this.structure = [];
 
@@ -10,25 +10,26 @@ class tabbisES6 {
 
 	// Set tabs event
 	setTabs() {
-		document.querySelectorAll(this.options.tabGroup).forEach((group, i) => {
-			this.loadMemory(i);
-			this.resetTabsChildren(group);
+		document.querySelectorAll(this.options.tab.group).forEach((group, i) => {
+			this.setActive(i);
+			this.resetClasses([ ...group.children ]); // Reset tabs
 
 			[ ...group.children ].forEach((tab, j) => {
 				tab.i = i;
 				tab.j = j;
 
 				if (j === this.active) {
-					this.activateTab(tab);
+					this.activateTabClass(tab);
 				}
 
 				tab.addEventListener('click', (e) => {
 					const current = e.currentTarget;
 
-					this.resetTabs(current);
-					this.resetPanes(current);
-					this.activateTab(current);
-					this.activatePane(tab.i, tab.j);
+					this.resetClasses([ ...current.parentNode.children ]); // Reset tabs
+					this.resetClasses(this.structure[tab.i]); // Reset panes
+
+					this.activateTabClass(current);
+					this.activatePaneClass(tab.i, tab.j);
 					this.saveMemory(current);
 
 					this.setCallback(current, this.structure[current.i][current.j]);
@@ -41,99 +42,113 @@ class tabbisES6 {
 	setPanes() {
 		this.structure = [];
 
-		document.querySelectorAll(this.options.paneGroup).forEach((group, i) => {
+		document.querySelectorAll(this.options.pane.group).forEach((group, i) => {
 			this.structure[i] = [];
 
-			this.loadMemory(i);
-			this.resetTabsChildren(group);
+			this.setActive(i);
+			this.resetClasses([ ...group.children ]); // Reset panes
 
 			[ ...group.children ].forEach((element, j) => {
 				this.structure[i][j] = element;
 
 				if (j === this.active) {
-					this.activatePane(i, j);
+					this.activatePaneClass(i, j);
 				}
 			});
 		});
 	}
 
-	// Reset tabs
-	resetTabs(tab) {
-		[ ...tab.parentNode.children ].forEach((item) => {
-			item.classList.remove('active');
-		});
+	// Set active
+	setActive(i) {
+		const memory = this.loadMemory(i);
+
+		if (typeof memory !== 'undefined') {
+			this.active = memory;
+		} else {
+			const element = document
+				.querySelectorAll(this.options.tab.group)
+				[i].querySelector(this.options.tab.activeData);
+
+			if (element) {
+				const index = [ ...element.parentElement.children ].indexOf(element);
+				this.active = index;
+			} else {
+				this.active = 0;
+			}
+		}
 	}
 
-	resetTabsChildren(group) {
-		[ ...group.children ].forEach((item) => {
-			item.classList.remove('active');
-		});
-	}
+	// CLASSES
 
-	// Reset panes
-	resetPanes(tab) {
-		this.structure[tab.i].forEach((element) => {
+	// Reset
+	resetClasses(elements) {
+		elements.forEach((element) => {
 			element.classList.remove('active');
 		});
 	}
 
 	// Activate tab
-	activateTab(tab) {
-		tab.classList.add(this.options.tabActive);
+	activateTabClass(tab) {
+		tab.classList.add(this.options.tab.activeClass);
 	}
 
 	// Activate pane
-	activatePane(i, j) {
-		this.structure[i][j].classList.add(this.options.paneActive);
+	activatePaneClass(i, j) {
+		this.structure[i][j].classList.add(this.options.pane.activeClass);
 	}
 
+	// MEMORY
+
+	// Load memory
 	loadMemory(i) {
 		if (!this.options.memory) return;
-		if (typeof this.memory === 'undefined') return;
+		if (typeof this.memory[i] === 'undefined' || this.memory[i] == null) return;
 
-		this.active = parseInt(this.memory[i]);
+		return parseInt(this.memory[i]);
 	}
 
+	// Save memory
 	saveMemory(tab) {
 		if (!this.options.memory) return;
 
-		if (typeof this.memory === 'undefined') {
-			this.memory = [];
-		}
 		this.memory[tab.i] = tab.j;
 
-		localStorage.setItem(this.options.memoryName, JSON.stringify(this.memory));
-	}
-
-	// Defaults
-	defaults() {
-		return {
-			tabGroup: '[data-tabs]',
-			paneGroup: '[data-panes]',
-			tabActive: 'active',
-			paneActive: 'active',
-			tabActiveData: 'active',
-			paneActiveData: 'active',
-			memory: true,
-			memoryName: 'tabbis'
-		};
-	}
-
-	// Set options
-	setOptions(options) {
-		this.options = Object.assign({}, this.defaults(), options);
+		localStorage.setItem(this.options.memory, JSON.stringify(this.memory));
 	}
 
 	// Set memory
 	setMemory() {
 		if (!this.options.memory) return;
 
-		const store = localStorage.getItem(this.options.memoryName);
+		this.memory = [];
+		const store = localStorage.getItem(this.options.memory);
 
-		if (store === null) return;
-		if (store.length == 0) return;
+		if (store === null || store.length == 0) return;
 
 		this.memory = Object.values(JSON.parse(store));
+	}
+
+	// OPTIONS
+
+	// Defaults
+	defaults() {
+		return {
+			tab: {
+				group: '[data-tabs]',
+				activeData: '[data-active]',
+				activeClass: 'active'
+			},
+			pane: {
+				group: '[data-panes]',
+				activeClass: 'active'
+			},
+			memory: 'tabbis'
+		};
+	}
+
+	// Set options
+	setOptions(options) {
+		this.options = this.mergeObjectsDeep(this.defaults(), options);
 	}
 
 	// Set callback
@@ -142,192 +157,36 @@ class tabbisES6 {
 			this.options.callback(tab, pane);
 		}
 	}
+
+	// Merge objects deep
+	mergeObjectsDeep() {
+		for (var o = {}, i = 0; i < arguments.length; i++) {
+			if (arguments[i].constructor !== Object) continue;
+			for (var k in arguments[i]) {
+				if (arguments[i].hasOwnProperty(k)) {
+					o[k] =
+						arguments[i][k].constructor === Object
+							? this.mergeObjectsDeep(o[k] || {}, arguments[i][k])
+							: arguments[i][k];
+				}
+			}
+		}
+		return o;
+	}
+}
+
+function tabbis(options = {}) {
+	let tabs = new tabbisClass();
+	tabs.init(options);
 }
 
 /*
-Om Minne saknas eller är inaktivt, sätt data-active till aktiv istället (option)
-Gör det i loadmemory? (option)
+Docs för att trigga click med js
+DOCS dom loaded
+DOCS - Nested tabs
+DOCS - Hänvisa till demos
+DOCS - Playground på csspoo
+DOCS - Ny screenshot
 
-Om data-tab-active saknas, sätt till första elementet (option)
-
-Slå ihop resetTabs and resetTabsChildren och resetTabs
-
-DOCS
-tabActiveData: "active",
-paneActiveData: "active",
-memory: true,
-memoryName: "tabbis"
-
-https://stackoverflow.com/questions/57918378/javascript-nested-objects-default-fallback-options
-
-tab: {
-  group: "",
-  activeClass: "",
-  activeData: "",
-},
-pane: {
-  group: "",
-  activeClass: "",
-  activeData: ""
-},
-memory: {
-  name: "asda"
-},
-callback: function()
+Gamla versionen i ny branch
 */
-
-var tabbis = (function() {
-  var fn = {};
-
-  var data;
-  var types = ["tab", "pane"];
-  var type;
-  var groups = [];
-  var activeGroups = [];
-  var activeChildren = [];
-  var activeItems = [];
-  var indexGroup;
-  var indexItem;
-  var memory = [];
-
-  fn.init = function(options) {
-    data = options;
-    fn.setDefaults();
-    fn.setMemory();
-
-    groups["tab"] = document.querySelectorAll(data.tabGroup);
-    groups["pane"] = document.querySelectorAll(data.paneGroup);
-
-    for (var groupIndex = 0; groupIndex < groups["tab"].length; groupIndex++) {
-      var tabItems = groups["tab"][groupIndex].children;
-
-      for (var itemIndex = 0; itemIndex < tabItems.length; itemIndex++) {
-        tabItems[itemIndex].addEventListener(
-          "click",
-          fn.onClick.bind(this, groupIndex, itemIndex),
-          false
-        );
-
-        indexGroup = groupIndex;
-        indexItem = itemIndex;
-
-        if (!fn.hasMemory()) continue;
-        fn.setNodes(groupIndex, itemIndex);
-      }
-    }
-  };
-
-  fn.onClick = function(groupIndex, itemIndex) {
-    fn.setNodes(groupIndex, itemIndex);
-    fn.setCallback(indexGroup, indexItem);
-  };
-
-  fn.setNodes = function(groupIndex, itemIndex) {
-    indexGroup = groupIndex;
-    indexItem = itemIndex;
-
-    for (var i = 0; i < types.length; i++) {
-      type = types[i];
-
-      fn.setActiveGroup();
-      fn.setActiveChildren();
-      fn.setActiveItems();
-      fn.putActiveClass();
-    }
-
-    memory[groupIndex] = [];
-    memory[groupIndex][itemIndex] = true;
-
-    try {
-      localStorage.setItem("tabbis", JSON.stringify(memory));
-    } catch (e) {
-      console.log("Tabs local storage failed. Most likely IE in use.");
-    }
-  };
-
-  //fn.hasMemory = function () {
-  //    if (typeof memory === 'undefined') return;
-  //    if (typeof memory[indexGroup] === 'undefined') return;
-  //    if (typeof memory[indexGroup][indexItem] === 'undefined') return;
-  //    if (memory[indexGroup][indexItem] !== true) return;
-  //    return true;
-  //};
-
-  fn.hasMemory = function() {
-    // https://stackoverflow.com/questions/41902495/javascript-multidimensional-array-is-valid
-
-    if (typeof memory === "undefined") return;
-    if (typeof memory[indexGroup] === "undefined") return;
-    if (memory[indexGroup] === null) return;
-    if (typeof memory[indexGroup][indexItem] === "undefined") return;
-    if (memory[indexGroup][indexItem] === null) return;
-    if (memory[indexGroup][indexItem] !== true) return;
-    return true;
-  };
-
-  fn.setMemory = function() {
-    try {
-      if (localStorage.getItem("tabbis") === null) return;
-      if (localStorage.getItem("tabbis").length == 0) return;
-
-      memory = Object.values(JSON.parse(localStorage.getItem("tabbis")));
-    } catch (e) {
-      console.log("Tabs local storage failed. Most likely IE in use.");
-    }
-  };
-
-  fn.putActiveClass = function() {
-    for (var i = 0; i < activeChildren[type].length; i++) {
-      activeChildren[type][i].classList.remove(data[type + "Active"]);
-    }
-
-    activeItems[type].classList.add(data[type + "Active"]);
-  };
-
-  fn.setDefaults = function() {
-    for (var i = 0; i < types.length; i++) {
-      type = types[i];
-
-      fn.setOption(type + "Group", "[data-" + type + "s]");
-      fn.setOption(type + "Active", "active");
-    }
-  };
-
-  fn.setOption = function(key, value) {
-    data = data || [];
-    data[key] = data[key] || value;
-  };
-
-  fn.setActiveGroup = function() {
-    activeGroups[type] = groups[type][indexGroup];
-  };
-
-  fn.setActiveChildren = function() {
-    activeChildren[type] = activeGroups[type].children;
-  };
-
-  fn.setActiveItems = function() {
-    activeItems[type] = activeChildren[type][indexItem];
-  };
-
-  fn.setCallback = function() {
-    if (typeof data.callback === "function") {
-      data.callback(activeItems.tab, activeItems.pane);
-    }
-  };
-
-  fn.reset = function() {
-    for (var groupIndex = 0; groupIndex < groups["tab"].length; groupIndex++) {
-      tabItems = groups["tab"][groupIndex].children;
-      paneItems = groups["pane"][groupIndex].children;
-
-      for (var itemIndex = 0; itemIndex < tabItems.length; itemIndex++) {
-        tabItems[itemIndex].classList.remove(data["tabActive"]);
-        paneItems[itemIndex].classList.remove(data["paneActive"]);
-      }
-    }
-    localStorage.removeItem("tabbis");
-  };
-
-  return fn;
-})();

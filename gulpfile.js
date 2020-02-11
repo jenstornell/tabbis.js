@@ -19,16 +19,18 @@ var js = {
 };
 
 function style() {
-	return gulp
-		.src(css.src)
-		.pipe(concat(css.filename))
-		.pipe(sass())
-		.on('error', sass.logError)
-		.pipe(autoprefixer())
-		.pipe(gulp.dest(css.dest))
-		.pipe(csso())
-		.pipe(rename({ extname: '.min.css' }))
-		.pipe(gulp.dest(css.dest));
+	return (
+		gulp
+			.src(css.src)
+			//.pipe(concat(css.filename))
+			.pipe(sass())
+			.on('error', sass.logError)
+			.pipe(autoprefixer())
+			.pipe(gulp.dest(css.dest))
+			.pipe(csso())
+			.pipe(rename({ extname: '.min.css' }))
+			.pipe(gulp.dest(css.dest))
+	);
 }
 
 function script() {

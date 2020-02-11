@@ -6,10 +6,10 @@
 }
 
 body {
-	padding: 0 4rem;
+	padding: 4rem;
 	background: #eee;
-}
 
-h2 {
-	margin: 2rem 0;
+	@media screen and (max-width: 460px) {
+		padding: 0;
+	}
 }

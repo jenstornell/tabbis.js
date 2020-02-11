@@ -1,8 +1,8 @@
-@import url("https://fonts.googleapis.com/css?family=Quicksand:600&display=swap");
 [data-tabs] {
   background: #000;
   border: 2px solid #000;
-  border-bottom: none; }
+  border-bottom: none;
+  overflow-x: auto; }
   [data-tabs] > * {
     padding: .75rem 1.5rem;
     -webkit-user-select: none;
@@ -11,6 +11,10 @@
             user-select: none;
     font-weight: 600;
     color: #fff; }
+    [data-tabs] > *:hover {
+      background: #333; }
+    [data-tabs] > *:active {
+      background: #555; }
   [data-tabs] > *:not(:last-child) {
     border-right: 1px solid #333; }
   [data-tabs] .active {
@@ -23,28 +27,6 @@
   border-top: none;
   padding: 2rem;
   font-weight: 600; }
-
-/*
-TODO: Hover animations
-TODO: Pane animation
-TODO: Mobile overflow scroll
-*/
-* {
-  margin: 0;
-  font-family: quicksand; }
-
-body {
-  padding: 0 4rem;
-  background: #eee; }
-
-h2 {
-  margin: 2rem 0; }
-
-[data-tabs] {
-  display: flex; }
-
-[data-panes] > * {
-  display: none; }
-
-[data-panes] > .active {
-  display: block; }
+  @media screen and (max-width: 460px) {
+    [data-panes] > * {
+      padding: 1rem; } }

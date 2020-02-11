@@ -2,12 +2,21 @@
 	background: #000;
 	border: 2px solid #000;
 	border-bottom: none;
+	overflow-x: auto;
 
 	> * {
 		padding: .75rem 1.5rem;
 		user-select: none;
 		font-weight: 600;
 		color: #fff;
+
+		&:hover {
+			background: #333;
+		}
+
+		&:active {
+			background: #555;
+		}
 	}
 
 	> *:not(:last-child) {
@@ -27,11 +36,9 @@
 		border-top: none;
 		padding: 2rem;
 		font-weight: 600;
+
+		@media screen and (max-width: 460px) {
+			padding: 1rem;
+		}
 	}
 }
-
-/*
-TODO: Hover animations
-TODO: Pane animation
-TODO: Mobile overflow scroll
-*/
