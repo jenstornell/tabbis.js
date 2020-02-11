@@ -1,6 +1,6 @@
 # Tabbis
 
-*Version 2.0*
+*Version 2.0 - For version 1 go to [old](old).*
 
 Really simple tabs with pure vanilla javascript.
 
@@ -21,15 +21,33 @@ Really simple tabs with pure vanilla javascript.
 
 ![Tabbis](screenshot.png)
 
+## Demos
+
+- [Demo 1 - Simple tabs](https://csspoo.com/tabbis/example-simple.html)
+- [Demo 2 - Nested tabs](https://csspoo.com/tabbis/example-nested.html)
+- [Demo 3 - Nested tabs with options](https://csspoo.com/tabbis/example-nested-tabs-with-options.html)
+
+## Examples
+
+- [Example 1 - Simple tabs](example-simple.html)
+- [Example 2 - Nested tabs](example-nested.html)
+- [Example 3 - Nested tabs with options](example-nested-tabs-with-options.html)
+
 ## Install
 
-**Stylesheet:** Add this before `</head>`:
+### Stylesheet
+
+Add this before `</head>`:
 
 ```html
-<link rel="stylesheet" href="assets/css/dist/tabbis.css">
+<link rel="stylesheet" href="assets/css/dist/tabbis.min.css">
 ```
 
-**Html:** Add this somewhere after `<body>`:
+*This stylesheet only includes the minimum required style for the tabs to work. For something more visual, include `demo.css` as well.*
+
+### Html
+
+Add this somewhere after `<body>`:
 
 ```html
 <div data-tabs>
@@ -45,10 +63,12 @@ Really simple tabs with pure vanilla javascript.
 </div>
 ```
 
-**Scripts:** Add this before `</body>`:
+### Scripts
+
+Add this before `</body>`:
 
 ```html
-<script src="tabbis.js"></script>
+<script src="assets/js/dist/tabbis.min.js"></script>
 <script>tabbis();</script>
 ```
 
@@ -56,29 +76,26 @@ Really simple tabs with pure vanilla javascript.
 
 If you need to use the options the script part will look like below.
 
-```html
-<script src="tabbis.js"></script>
-<script>
-  tabbis({
-    tab: {
-      group: '[data-tabs]',
-      activeData: '[data-active]',
-      activeClass: 'active'
-    },
-    pane: {
-      group: '[data-panes]',
-      activeClass: 'active'
-    },
-    memory: 'tabbis', // Set to false to disable
-    callback: function(tab, pane) {
-      console.log(tab);
-      console.log(pane);
-    }
-  });
-</script>
+```js
+tabbis({
+  tab: {
+    group: '[data-tabs]',
+    activeData: '[data-active]',
+    activeClass: 'active'
+  },
+  pane: {
+    group: '[data-panes]',
+    activeClass: 'active'
+  },
+  memory: 'tabbis', // Set to false to disable
+  callback: function(tab, pane) {
+    console.log(tab);
+    console.log(pane);
+  }
+});
 ```
 
-*The options are nested like the example, but in the table dot notation is used to make it more readable.*
+*The options are **nested** like the example, but in the table dot notation is used to make it more readable.*
 
 | Option | Default   | Description |
 | ------ | --------- | ----------- |
@@ -106,6 +123,10 @@ If you have memory activated, Tabbis will look there first and set a tab to acti
 
 *Don't add `active` class on a tab directly. It may cause a flash of unstyled content. Instead use `data-active`.*
 
+## Nesting
+
+It's possible to have nested tabs. See [example-nested.html](example-nested.html).
+
 ## Requirements
 
 A modern browser.
@@ -115,6 +136,35 @@ A modern browser.
 - Chrome
 - Firefox
 - Edge
+
+## FAQ
+
+### Why does tabbis does not load?
+
+In some cases you may need to wait for the dom to load.
+
+```js
+window.addEventListener('DOMContentLoaded', () => {
+    tabbis();
+});
+```
+
+### How can I trigger a tab do activate?
+
+There is no built in feature in Tabbis to do that but it can be done with pure javascript.
+
+```js
+const element = document.querySelector('.my-tab');
+element.click();
+```
+
+### How can I reset the tabs memory?
+
+One way is to use the [Clear Session](https://chrome.google.com/webstore/detail/clear-session/maejjihldgmkjlfmgpgoebepjchengka) which is a Google Chrome extension.
+
+### Why is the memory acting wierd when I use tabs on multiple pages?
+
+The memory uses a key that is bound to a domain, not a page. You should change the `memory: 'tabbis'` to something like `memory: 'tabbis-page-about'` to have a unique memory for each page type.
 
 ## Disclaimer
 

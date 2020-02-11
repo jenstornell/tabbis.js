@@ -21,7 +21,7 @@ Really simple tabs with pure vanilla javascript.
 
 **Preview**
 
-![Tabbis](docs/screenshot.gif)
+![Tabbis](screenshot.gif)
 
 ## Install
 

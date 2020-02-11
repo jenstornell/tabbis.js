@@ -179,14 +179,3 @@ function tabbis(options = {}) {
 	let tabs = new tabbisClass();
 	tabs.init(options);
 }
-
-/*
-Docs för att trigga click med js
-DOCS dom loaded
-DOCS - Nested tabs
-DOCS - Hänvisa till demos
-DOCS - Playground på csspoo
-DOCS - Ny screenshot
-
-Gamla versionen i ny branch
-*/
