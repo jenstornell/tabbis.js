@@ -1,6 +1,6 @@
 # Tabbis
 
-*Version 2.0* - Go to [Version 1](old) or see the [Changelog](CHANGELOG.md).
+*Version 2.0* - See the [Changelog](CHANGELOG.md) or [version 1](old).
 
 Really simple tabs with pure vanilla javascript.
 
