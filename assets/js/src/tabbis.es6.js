@@ -142,13 +142,17 @@ class tabbisClass {
 				group: '[data-panes]',
 				activeClass: 'active'
 			},
-			memory: 'tabbis'
+			memory: false
 		};
 	}
 
 	// Set options
 	setOptions(options) {
 		this.options = this.mergeObjectsDeep(this.defaults(), options);
+
+		if (this.options.memory === true) {
+			this.options.memory = 'tabbis';
+		}
 	}
 
 	// Set callback

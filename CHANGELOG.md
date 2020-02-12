@@ -4,6 +4,7 @@
 
 - **Behaviour:** Set active tab with a selector
 - **Behaviour:** If no tab is active it will set to the first tab to active
+- **Behaviour:** Tab memory is disabled by default
 - **Option:** `memory` - Possible to disable with `false`
 - **Option:** `activeData` - Selector for `data-active`
 - **Docs:** New stylesheet

@@ -97,20 +97,20 @@ tabbis({
 
 *The options are **nested** like the example, but in the table dot notation is used to make it more readable.*
 
-| Option | Default   | Description |
-| ------ | --------- | ----------- |
-| `tab.group`        | `[data-tabs]`   | A selector to know where your tabs are located. |
-| `tab.activeData`   | `[data-active]` | You can add `data-active` to the tab that you want to be active on first load. |
-| `tab.activeClass`  | `active`        | The current tab class that will be added when the user clicks a tab. |
-| `pane.group`       | `[data-pane]`   | A selector for Tabbis to know where your panes are located. |
-| `pane.activeClass` | `active`        | The current pane class that will be added when user clicks a tab. |
-| `memory`           | `tabbis`        | The local storage name. To disable memory you can set it to `false`. |
-| `callback`         | `null`          | To do something when a tab is clicked you can use the callback. See example. |
+| Option             | Default           | Description |
+| ------------------ | ----------------- | ----------- |
+| `tab.group`        | `'[data-tabs]'`   | A selector to know where your tabs are located. |
+| `tab.activeData`   | `'[data-active]'` | You can add `data-active` to the tab that you want to be active on first load. |
+| `tab.activeClass`  | `'active'`        | The current tab class that will be added when the user clicks a tab. |
+| `pane.group`       | `'[data-pane]'`   | A selector for Tabbis to know where your panes are located. |
+| `pane.activeClass` | `'active'`        | The current pane class that will be added when user clicks a tab. |
+| `memory`           | `false`           | The local storage name. To disable memory you can set it to `false`. |
+| `callback`         | `null`            | To do something when a tab is clicked you can use the callback. See example. |
 
 
 ## Memory
 
-By design, when using the tabs, they are save in your local storage. If you reset the browser, the tabs will still be open where you left them. To disable memory you can set `memory: false` in your options.
+To make the browser remember your tabs state after a page refresh, you can add `memory: true` or `memory: 'my-storage-name'`. When set to `true` it will use `tabbis` as storage name.
 
 ## Active tab
 
