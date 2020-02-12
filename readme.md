@@ -87,7 +87,7 @@ tabbis({
     group: '[data-panes]',
     activeClass: 'active'
   },
-  memory: 'tabbis', // Set to false to disable
+  memory: false,
   callback: function(tab, pane) {
     console.log(tab);
     console.log(pane);
