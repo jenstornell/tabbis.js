@@ -1,6 +1,6 @@
-# Tabbis
+# Tabbis 1.0 (old version)
 
-***New version available*** - *Old version can be found <a href="https://github.com/jenstornell/tabbis.js/blob/master/old/demo.html">here</a>*.
+***New version 2.0 can be found [here](https://github.com/jenstornell/tabbis.js)***
 
 Really simple tabs with pure vanilla javascript.
 
