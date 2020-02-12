@@ -1,15 +1,15 @@
 # Tabbis
 
+*Version 2.0* - Go to [Version 1](old) or see the [Changelog](CHANGELOG.md).
+
 Really simple tabs with pure vanilla javascript.
 
-**Features**
+**Supports**
 
-- Tiny filesize
-- Simple setup
-- Remember tabs
-- Callback support
-- Unlimited tab sets
-- Unlimited nesting
+- Nesting
+- Memory
+- Options
+- Callback
 
 **Also**
 
@@ -19,30 +19,35 @@ Really simple tabs with pure vanilla javascript.
 
 **Preview**
 
-![Tabbis](docs/screenshot.gif)
+![Tabbis](screenshot.png)
+
+## Demos
+
+- [Demo 1 - Simple tabs](https://csspoo.com/tabbis/example-simple.html)
+- [Demo 2 - Nested tabs](https://csspoo.com/tabbis/example-nested.html)
+- [Demo 3 - Nested tabs with options](https://csspoo.com/tabbis/example-nested-with-options.html)
+
+## Examples
+
+- [Example 1 - Simple tabs](example-simple.html)
+- [Example 2 - Nested tabs](example-nested.html)
+- [Example 3 - Nested tabs with options](example-nested-with-options.html)
 
 ## Install
 
-Install by the simple OR the [advanced setup](docs/advanced.md) depending on your needs.
+### Stylesheet
 
-### Simple setup
-
-**Scripts:** Add this just before `</body>`:
+Add this before `</head>`:
 
 ```html
-<script src="tabbis.js"></script>
-<script>
-  var tabs = tabbis.init();
-</script>
+<link rel="stylesheet" href="assets/css/dist/tabbis.min.css">
 ```
 
-**Stylesheet:** Add this before `</head>`:
+*This stylesheet only includes the minimum required style for the tabs to work. For something more visual, include `demo.css` as well.*
 
-```html
-<link rel="stylesheet" href="css/tabby.css" />
-```
+### Html
 
-**Html:** Add this somewhere after `<body>`:
+Add this somewhere after `<body>`:
 
 ```html
 <div data-tabs>
@@ -58,29 +63,116 @@ Install by the simple OR the [advanced setup](docs/advanced.md) depending on you
 </div>
 ```
 
-**[Advanced setup](docs/advanced.md)**
+### Scripts
+
+Add this before `</body>`:
+
+```html
+<script src="assets/js/dist/tabbis.min.js"></script>
+<script>tabbis();</script>
+```
+
+## Options
+
+If you need to use the options the script part will look like below.
+
+```js
+tabbis({
+  tab: {
+    group: '[data-tabs]',
+    activeData: '[data-active]',
+    activeClass: 'active'
+  },
+  pane: {
+    group: '[data-panes]',
+    activeClass: 'active'
+  },
+  memory: false,
+  callback: function(tab, pane) {
+    console.log(tab);
+    console.log(pane);
+  }
+});
+```
+
+*The options are **nested** like the example, but in the table dot notation is used to make it more readable.*
+
+| Option             | Default           | Description |
+| ------------------ | ----------------- | ----------- |
+| `tab.group`        | `'[data-tabs]'`   | A selector to know where your tabs are located. |
+| `tab.activeData`   | `'[data-active]'` | You can add `data-active` to the tab that you want to be active on first load. |
+| `tab.activeClass`  | `'active'`        | The current tab class that will be added when the user clicks a tab. |
+| `pane.group`       | `'[data-pane]'`   | A selector for Tabbis to know where your panes are located. |
+| `pane.activeClass` | `'active'`        | The current pane class that will be added when user clicks a tab. |
+| `memory`           | `false`           | The local storage name. To disable memory you can set it to `false`. |
+| `callback`         | `null`            | To do something when a tab is clicked you can use the callback. See example. |
+
 
 ## Memory
 
-By design, when using the tabs they are save in your localStorage. If you reset the browser the tabs will still be open where you left them.
+To make the browser remember your tabs state after a page refresh, you can add `memory: true` or `memory: 'my-storage-name'`. When set to `true` it will use `tabbis` as storage name.
+
+## Active tab
+
+The active tab is set by the following order.
+
+1. **Memory** - If you have memory activated and Tabbis has found an active tab in the memory it will use that.
+2. **Data attribute** - By default you can set `data-active` on a tab that you want to be active on the first load, or always depending if memory is activated or not.
+3. **First tab** - If none of the above can be used, the first tab will be active.
+
+*Never add `active` class on a tab, instead use `data-active`. Else you will experience a flash of unstyled content, which is not a good thing.*
+
+## Nesting
+
+It's possible to have nested tabs. See [example-nested.html](example-nested.html).
 
 ## Requirements
-
-A modern browser.
-
-**Tested with:**
 
 - Chrome
 - Firefox
 - Edge
 
+## FAQ
+
+### Why does Tabbis not load?
+
+In some cases you may need to wait for the dom to load. It can be done like below.
+
+```js
+window.addEventListener('DOMContentLoaded', () => {
+  tabbis();
+});
+```
+
+### How can I trigger a tab to activate?
+
+There is no built in feature in Tabbis to do that, but it can be done with pure javascript.
+
+```js
+const element = document.querySelector('.my-tab');
+element.click();
+```
+
+### How can I reset the tabs memory?
+
+One way is to use the [Clear Session](https://chrome.google.com/webstore/detail/clear-session/maejjihldgmkjlfmgpgoebepjchengka) which is a Google Chrome extension.
+
+### Why is the memory acting wierd when I use tabs on multiple pages?
+
+The memory uses a key that is bound to a domain, not a page. You should change the `memory: 'tabbis'` to something like `memory: 'tabbis-page-about'` to have a unique memory for each page type.
+
 ## Disclaimer
 
-This plugin is provided "as is" with no guarantee. Use it at your own risk and always test it yourself before using it in a production environment. If you find any issues, please create a new issue.
+This library is provided "as is" with no guarantee. Use it at your own risk and always test it yourself before using it in a production environment. If you find any issues, please create a new issue.
 
-## License - MIT
+## License
 
-https://opensource.org/licenses/MIT
+[MIT](LICENSE)
+
+## Featured
+
+- https://www.hongkiat.com/blog/50-nice-clean-css-tab-based-navigation-scripts/
+- https://www.cssscript.com/tiny-nested-tabs-vanilla-javascript-tabbis-js/
 
 ## Credits
 

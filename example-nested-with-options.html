@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Tabbis</title>
+    <link rel="stylesheet" href="assets/css/dist/tabbis.css">
+    <link rel="stylesheet" href="assets/css/dist/reset.css">
+    <link rel="stylesheet" href="assets/css/dist/demo.css">
+  </head>
+  <body>
+    <div data-tabs>
+      <div>Tab1</div>
+      <div data-active>Tab2</div>
+      <div>Tab3</div>
+    </div>
+
+    <div data-panes>
+      <div>Pane1</div>
+      <div>
+        <div data-tabs>
+          <div>Tab4</div>
+          <div data-active>Tab5</div>
+        </div>
+
+        <div data-panes>
+          <div>Pane4</div>
+          <div>
+            <div data-tabs>
+              <div>Tab6</div>
+              <div data-active>Tab7</div>
+            </div>
+
+            <div data-panes>
+              <div>Pane6</div>
+              <div>Pane7</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>Pane3</div>
+    </div>
+
+    <script src="assets/js/dist/tabbis.js"></script>
+    <script>
+      tabbis({
+        tab: {
+          group: '[data-tabs]',
+          activeData: '[data-active]',
+          activeClass: 'active'
+        },
+        pane: {
+          group: '[data-panes]',
+          activeClass: 'active'
+        },
+        memory: true,
+        callback: function(tab, pane) {
+          console.log(tab);
+          console.log(pane);
+        }
+      });
+    </script>
+  </body>
+</html>

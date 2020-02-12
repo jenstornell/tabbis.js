@@ -1,0 +1,11 @@
+[data-tabs] {
+	display: flex;
+}
+
+[data-panes] > * {
+	display: none;
+}
+
+[data-panes] > .active {
+	display: block;
+}
