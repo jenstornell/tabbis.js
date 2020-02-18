@@ -6,7 +6,7 @@ If you like Tabbis, please consider [making a donation](https://www.paypal.me/De
 
 ![Tabbis](screenshot.png)
 
-**About**
+## About
 
 Really simple tabs with pure vanilla javascript, no jQuery involved. It's just 3.3 kB minified and 1.2 kB gzipped.
 
@@ -24,6 +24,8 @@ Really simple tabs with pure vanilla javascript, no jQuery involved. It's just 3
 - [Nested tabs with options](https://csspoo.com/tabbis/examples/style-default.html)
 
 ## Setup
+
+Instead of going step by step, I give you a full example.
 
 ```html
 <!DOCTYPE html>
@@ -57,7 +59,7 @@ For more see the more advanced [examples](examples).
 
 ## Options
 
-In the function call below, all the options are used. It will not change anything compared to `tabbis()`, because the default values are used in this case.
+The function call below will not change anything compared to `tabbis()`, because every option is set to its default value.
 
 ```js
 tabbis({
@@ -99,12 +101,12 @@ document.addEventListener("tabbis", e => {
 
 Tabbis supports keyboard navigation.
 
-- Arrow keys (left/right, up/down) - Will activate the next or previous tab to the current activated tab.
-- Tab (left/right) - Will jump from the active tab to the related pane or the other way around.
+- Arrow keys (left/right, up/down) will activate the next or previous tab to the current activated tab.
+- Tab (left/right) will jump from the active tab to the related pane or the other way around.
 
 ## Memory
 
-To make the browser remember your tabs state after a page refresh, you can add `memory: true` or `memory: 'my-storage-name'`. When set to `true` it will use `tabbis` as storage name.
+To make the browser remember your tab state after a page refresh, you can add `memory: true` or `memory: 'my-storage-name'`. When set to `true` it will use `tabbis` as storage name.
 
 ## Accessability
 
@@ -116,7 +118,7 @@ Tabbis automatically adds aria attributes to the elements, so you don't have to.
 
 There are many ways to have a tab activated.
 
-### Interaction
+### User interaction
 
 When you click a tab or press enter on you keyboard, the current tab will be activated by default.
 
@@ -126,15 +128,15 @@ In case you have set `memory: true`, Tabbis will remember the current state of y
 
 ### Selector
 
-By default you can add `data-active` as an attribute to the tab in a group that should be active. Tabbis will then automatically add `aria-selected="true"` on the active tab. If memory is enabled it will override this state from the memory.
+By default you can add `data-active` as an attribute to the tab in a group that should be active. Tabbis will then automatically add `aria-selected="true"` on the active tab. However, if memory is enabled it will override this state from the memory.
 
 ### Aria attribute
 
-It's not recommended because of flash of unstyled content, but it's now possible to add `aria-selected="true"` to the tab in a group that should be active, instead of using `data-active`. If memory is enabled it will override this state from the memory.
+**Not rekommended:** It's possible to add `aria-selected="true"` to the tab in a group that should be active, instead of using `data-active`. However, if memory is enabled, it will override this state from the memory.
 
 ### Tab index
 
-If you have not added `data-active` as an attribute to a tab, it will by default fallback to the first tab. You can force Tabbis to not select anything with `tabActiveFallback: false`.
+If you have not added `data-active` or not added `aria-selected="true"` as an attribute to a tab, it will by default fallback to the first tab. You can force Tabbis to not select anything with `tabActiveFallback: false`.
 
 ## Requirements
 
@@ -170,9 +172,9 @@ element.click();
 
 ### How can I reset the tabs memory?
 
-One way is to use the [Clear Session](https://chrome.google.com/webstore/detail/clear-session/maejjihldgmkjlfmgpgoebepjchengka) which is a Google Chrome extension.
+One way is to use [Clear Session](https://chrome.google.com/webstore/detail/clear-session/maejjihldgmkjlfmgpgoebepjchengka) which is a Google Chrome extension.
 
-### Why is the memory acting wierd when I use tabs on multiple pages?
+### Why is the memory acting wierd when using tabs on multiple pages?
 
 The memory uses a key that is bound to a domain, not a page. You should change the `memory: 'tabbis'` to something like `memory: 'tabbis-page-about'` to have a unique memory for each page type.
 
