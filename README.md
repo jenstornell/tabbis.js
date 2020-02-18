@@ -1,6 +1,8 @@
 # Tabbis
 
-*Version 3.0* - See the [Changelog](docs/CHANGELOG.md) or [version 1](old). If you like Tabbis, please considder [making a donation](https://www.paypal.me/DevoneraAB) to support my work.
+*Version 3.0* - See the [Changelog](docs/CHANGELOG.md) or [version 1](old).
+
+If you like Tabbis, please consider [making a donation](https://www.paypal.me/DevoneraAB) to support my work.
 
 ![Tabbis](screenshot.png)
 
