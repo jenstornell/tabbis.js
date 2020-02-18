@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Tabbis</title>
+    <link rel="stylesheet" href="../assets/css/dist/style-default.css">
+
+    <style>
+      /* Reset */
+      @import url('https://fonts.googleapis.com/css?family=Quicksand:600&display=swap');
+
+      * {
+        margin: 0;
+        font-family: quicksand;
+      }
+
+      body {
+        padding: 4rem;
+        background: #eee;
+
+        @media screen and (max-width: 460px) {
+          padding: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div data-tabs>
+      <button>Tab1</button>
+      <button>Tab2</button>
+      <button>Tab3</button>
+    </div>
+
+    <div data-panes>
+      <div>Pane1</div>
+      <div>Pane2</div>
+      <div>Pane3</div>
+    </div>
+
+    <script src="../assets/js/dist/tabbis.es5.min.js"></script>
+    <script>
+      tabbis();
+    </script>
+  </body>
+</html>

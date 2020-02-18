@@ -5,6 +5,7 @@ let concat = require('gulp-concat');
 let uglify = require('gulp-uglify-es').default;
 let csso = require('gulp-csso');
 let rename = require('gulp-rename');
+const babel = require('gulp-babel');
 
 var css = {
 	src: 'assets/css/src/**/*.scss',
@@ -37,6 +38,23 @@ function script() {
 	return gulp
 		.src(js.src)
 		.pipe(concat(js.filename))
+		.pipe(rename({ extname: '.es6.js' }))
+		.pipe(gulp.dest(js.dest))
+		.pipe(uglify())
+		.pipe(rename({ extname: '.min.js' }))
+		.pipe(gulp.dest(js.dest));
+}
+
+function tobabel() {
+	return gulp
+		.src(js.src)
+		.pipe(concat(js.filename))
+		.pipe(rename({ extname: '.es5.js' }))
+		.pipe(
+			babel({
+				presets: [ '@babel/env' ]
+			})
+		)
 		.pipe(gulp.dest(js.dest))
 		.pipe(uglify())
 		.pipe(rename({ extname: '.min.js' }))
@@ -46,6 +64,7 @@ function script() {
 function watch() {
 	gulp.watch(css.src, style);
 	gulp.watch(js.src, script);
+	gulp.watch(js.src, tobabel);
 }
 
 exports.css = style;
